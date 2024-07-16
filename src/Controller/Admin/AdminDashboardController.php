@@ -13,6 +13,9 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 //include entities
 use App\Entity\User;
+use App\Entity\Produit;
+use App\Entity\MarqueProduit;
+use App\Entity\CategorieProduit;
 //mailler
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -59,6 +62,10 @@ class AdminDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::subMenu('Produits', 'fa fa-book')->setSubItems([
+            MenuItem::linkToCrud('Produits', '', Produit::class),
+            MenuItem::linkToCrud('Catégories', '', CategorieProduit::class),
+            MenuItem::linkToCrud('Marques', '', MarqueProduit::class)
+        ])->setPermission('ROLE_ADMIN');
     }
 }
