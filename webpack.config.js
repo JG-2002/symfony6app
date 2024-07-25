@@ -20,7 +20,20 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/app.js')
+    .addEntry('js/app', [
+        './assets/app.js',
+        './assets/images.js'
+    ])
+
+    .addEntry("js/front", [
+        './assets/js/scripts.js'
+    ])
+    .addStyleEntry ('css/app', [
+        './assets/styles/app.css',
+    ])
+    .addStyleEntry ('css/front', [
+        './assets/styles/styles.css',
+    ])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -28,6 +41,7 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
+
 
     /*
      * FEATURE CONFIG
@@ -67,7 +81,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
