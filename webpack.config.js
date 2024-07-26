@@ -11,8 +11,48 @@ Encore
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
-    // only needed for CDN's or subdirectory deploy
-    //.setManifestKeyPrefix('build/')
+    .addLoader({ test: /\.(cur)$/, loader: 'file-loader' })
+    .cleanupOutputBeforeBuild(["public"], (options) => {
+        options.verbose = true;
+        options.root = __dirname;
+        options.exclude = [
+            "index.php",
+            "manifest.json",
+            'site.webmanifest',
+            'favicon.ico',
+            'robots.txt',
+            "dl",
+            "images"
+        ];
+    })
+    .copyFiles([
+        {
+            from: "./node_modules/ckeditor4/",
+            to: "ckeditor/[path][name].[ext]",
+            pattern: /\.(js|css)$/,
+            includeSubdirectories: false,
+        },
+        {
+            from: "./node_modules/ckeditor4/adapters",
+            to: "ckeditor/adapters/[path][name].[ext]",
+        },
+        {
+            from: "./node_modules/ckeditor4/lang",
+            to: "ckeditor/lang/[path][name].[ext]",
+        },
+        {
+            from: "./node_modules/ckeditor4/plugins",
+            to: "ckeditor/plugins/[path][name].[ext]",
+        },
+        {
+            from: "./node_modules/ckeditor4/skins",
+            to: "ckeditor/skins/[path][name].[ext]",
+        },
+        {
+            from: "./node_modules/ckeditor4/vendor",
+            to: "ckeditor/vendor/[path][name].[ext]",
+        },
+    ])
 
     /*
      * ENTRY CONFIG
@@ -20,19 +60,25 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('js/app', [
+    .addEntry('app', [
         './assets/app.js',
         './assets/images.js'
     ])
-
-    .addEntry("js/front", [
-        './assets/js/scripts.js'
+    .addEntry('js/front-home', [
+        './assets/js/bootstrap.bundle.min.js',
+        './assets/js/tiny-slider.js',
+        './assets/js/custom.js',
     ])
-    .addStyleEntry ('css/app', [
-        './assets/styles/app.css',
+    .addEntry('js/front', [
+        './assets/js/bootstrap.bundle.min.js',
+        './assets/js/custom.js',
     ])
-    .addStyleEntry ('css/front', [
-        './assets/styles/styles.css',
+    .addStyleEntry("css/front/bootstrap", ["./assets/styles/bootstrap.min.css"])
+    .addStyleEntry('css/front/tiny-slider', [
+        './assets/styles/tiny-slider.css'
+    ])
+    .addStyleEntry('css/front/style', [
+        './assets/styles/style.css'
     ])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -41,7 +87,6 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
-
 
     /*
      * FEATURE CONFIG
@@ -82,6 +127,12 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
-;
+    ;
 
+var config = Encore.getWebpackConfig();
+
+var path = require('path');
+config.resolve.alias = {
+    'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery')
+};
 module.exports = Encore.getWebpackConfig();
