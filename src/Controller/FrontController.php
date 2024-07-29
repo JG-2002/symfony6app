@@ -15,7 +15,13 @@ use Symfony\Component\Mime\Address;
 
 class FrontController extends AbstractController
 {
-    #[Route('/', name: 'index_home_page')]
+    public function __construct(
+        private readonly MailerInterface $mailer
+    ) {
+    }
+
+
+    #[Route('/', name: 'index_home_page', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('front/index.html.twig', [
@@ -23,20 +29,19 @@ class FrontController extends AbstractController
         ]);
     }
 
-    #[Route('/contact', name: 'index_contact_page')]
+    #[Route('/contact', name: 'index_contact_page', methods: ['GET', 'POST'])]
     public function contact(Request $request): Response
     {
         if ($request->getMethod() == 'POST') {
-            $firstname = $request->get('firstname', null);
-            $lastname = $request->get('lastname', null);
-            $email = $request->get('email', null);
-            $message = $request->get('message', null);
-
+            $firstname = $request->get('firstname');
+            $lastname = $request->get('lastname');
+            $email = $request->get('email');
+            $message = $request->get('message');
             if ($firstname && $lastname && $email && $message) {
                 $email = (new Email())
                     ->from('contact@marketin.com')
                     ->replyTo(new Address($email, $firstname . $lastname))
-                    ->to($this->toEmail)
+                    ->to('contact@marketin.com')
                     ->subject('[MarketIn] Nouveau message')
                     ->text($message);
                 if ($request->files->get('inputAttachment')) {
@@ -49,7 +54,7 @@ class FrontController extends AbstractController
                     $this->addFlash('error', 'Une erreur est survenue lors de l\'envoie de l\'email, merci de rééssayer');
                 }
             } else {
-                $this->addFlash('error', "Vous devez passer le recaptcha!, merci de rééssayer");
+                $this->addFlash('error', "Tous les champs doivent être renseignés");
             }
         }
 
