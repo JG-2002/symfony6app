@@ -21,7 +21,10 @@
 		{% endblock %}
 	</head>
 	<body>
+		{{ include('template/header.html.twig') }}
+		{{ include('template/flash_messages.html.twig') }}
 		{% block body %}{% endblock %}
+		{{ include('template/footer.html.twig') }}
 		{% block javascripts %}
 			{{ encore_entry_script_tags('js/front-home') }}
 			{% block importmap %}

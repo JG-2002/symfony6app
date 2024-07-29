@@ -15,7 +15,7 @@ body {
   line-height: 28px;
   color: #6a6a6a;
   font-size: 14px;
-  background-color: #eff2f1; }
+  background-color: #eff2f1 !important; }
 
 a {
   text-decoration: none;
@@ -316,7 +316,7 @@ a {
   .we-help-section .imgs-grid {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: (1fr)[27];
+    /*-ms-grid-columns: (1fr)[27];*/
     grid-template-columns: repeat(27, 1fr);
     position: relative; }
     .we-help-section .imgs-grid:before {
@@ -429,7 +429,8 @@ a {
     @media (min-width: 768px) {
       .testimonial-slider-wrap .item .testimonial-block blockquote {
         line-height: 32px;
-        font-size: 18px; } }
+        font-size: 18px; }
+    }
   .testimonial-slider-wrap .item .testimonial-block .author-info .author-pic {
     margin-bottom: 20px; }
     .testimonial-slider-wrap .item .testimonial-block .author-info .author-pic img {
@@ -709,3 +710,15 @@ textarea {
     height: 50px;
     border-radius: 50%;
     background: rgba(59, 93, 80, 0.2); }
+
+@media (max-width: 767px) {
+  .hero .hero-img-wrap img{
+    max-width: 100%;
+  }
+  .hero .hero-img-wrap:after {
+    width: 100%;
+  }
+  .container{
+    max-width: 100% !important;
+  }
+}

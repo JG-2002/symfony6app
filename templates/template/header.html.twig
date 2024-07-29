@@ -1,0 +1,47 @@
+<!-- Start Header/Navigation -->
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+{% set currentRoute = app.request.attributes.get('_route') %}
+{% set currentRouteParams = app.request.attributes.get('_route_params') %}
+<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">MarketIn<span>.</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item {% if currentRoute == 'index_home_page' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('index_home_page') }}">Accueil </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Boutique</a>
+                </li>
+{#                <li>#}
+{#                    <a class="nav-link" href="about.html">About us</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a class="nav-link" href="services.html">Services</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a class="nav-link" href="blog.html">Blog</a>#}
+{#                </li>#}
+                <li class="nav-item {% if currentRoute == 'index_contact_page' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('index_contact_page') }}">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+            <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                <li>
+                    <a class="nav-link" href="#"><img src="{{ asset('images/user.svg') }}"></a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#"><img src="{{ asset('images/cart.svg') }}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!-- End Header/Navigation -->
