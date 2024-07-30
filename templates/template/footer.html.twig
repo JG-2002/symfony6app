@@ -14,12 +14,12 @@
                         <span>Souscrire à la newsletter</span>
                     </h3>
 
-                    <form action="#" class="row g-3">
+                    <form action="{{ path('index_newsletter_page') }}" method="post" class="row g-3">
                         <div class="col-auto">
-                            <input type="text" class="form-control" placeholder="Entrer votre nom">
+                            <input type="text" name="name" class="form-control" placeholder="Entrer votre nom">
                         </div>
                         <div class="col-auto">
-                            <input type="email" class="form-control" placeholder="Entrer votre email">
+                            <input type="email" name="email" class="form-control" placeholder="Entrer votre email">
                         </div>
                         <div class="col-auto">
                             <button class="btn btn-primary">
