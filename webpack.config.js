@@ -73,11 +73,9 @@ Encore
         './assets/js/bootstrap.bundle.min.js',
         './assets/js/custom.js',
     ])
-    .addStyleEntry("css/front/bootstrap", ["./assets/styles/bootstrap.min.css"])
-    .addStyleEntry('css/front/tiny-slider', [
-        './assets/styles/tiny-slider.css'
-    ])
-    .addStyleEntry('css/front/style', [
+    .addStyleEntry('css/front', [
+        "./assets/styles/bootstrap.min.css",
+        './assets/styles/tiny-slider.css',
         './assets/styles/style.css'
     ])
 
